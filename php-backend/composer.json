@@ -1,0 +1,7 @@
+{
+    "name": "app/php-backend",
+    "description": "Backend for Dynamic Web Solutions project app",
+    "require": {
+        "ramsey/uuid": "^4.0"
+    }
+}
