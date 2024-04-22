@@ -6,12 +6,12 @@ VALUES ($1, $2, $3);
 
 const readUser = `
 SELECT user_id, username, password
-FROM user
+FROM users
 WHERE user_id = $1;
 `
 const readUserByName = `
-SELECT user_id, username, password
-FROM user
+SELECT *
+FROM users
 WHERE username = $1;
 `
 
