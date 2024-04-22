@@ -1,16 +1,27 @@
 const { Router } = require('express');
-const login_ctrl = require('./controllers/controller.login');
+const loginController = require('./controllers/controller.login');
+const registerController = require('./controllers/controller.register');
+const authController = require('./controllers/controller.auth');
 const { userSchema } = require('./entities/user/validation');
 const { validate } = require('./common/validation_util');
 
 const router = Router();
 
 router.post('/login', validate(userSchema), (req, res) => {
-    login_ctrl.login(req, res);
+    loginController.login(req, res);
 });
 
-router.get('/:flight_no/load-week', (req, res) => {
-    controller.getAirlineDailyLoad(req, res);
+router.post('/register', validate(userSchema), (req, res) => {
+    registerController.register(req, res);
 });
+
+router.get('/auth', (req, res) => {
+    authController.authenticateCookie(req, res);
+});
+
+router.get('/test', (req, res) => {
+    return res.status(200).json({message: 'test'});
+})
+
 
 module.exports = router;
