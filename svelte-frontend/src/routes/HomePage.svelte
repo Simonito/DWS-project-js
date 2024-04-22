@@ -4,6 +4,7 @@
     import UserExpenses from '../components/UserExpenses.svelte';
     import { onMount } from 'svelte';
     import { push, replace } from 'svelte-spa-router';
+    import { serverUrl } from '../constants';
   
     let username = "ahoj";
     let expenses = [
@@ -29,8 +30,11 @@
     
     async function authenticate() {
         try {
-            const response = await fetch('/auth.php', {
+            const response = await fetch(serverUrl + 'v1/auth', {
                 method: 'GET',
+                headers: {
+                  'Accept': 'application/json',
+                },
             });
 
             if (response.status != 200) {

@@ -1,5 +1,6 @@
 <script>
     import { push } from 'svelte-spa-router';
+    import { serverUrl } from '../constants';
 
     let errorMessage = '';
 
@@ -9,13 +10,16 @@
 
     async function handleLogin(event) {
         event.preventDefault();
-        const form = event.target;
-        const formData = new FormData(form);
+        const body = JSON.stringify({ username, password });
 
         try {
-            const response = await fetch('/login.php', {
+            const response = await fetch(serverUrl + 'v1/login', {
                 method: 'POST',
-                body: formData,
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: body,
             });
 
             if (response.status === 200) {
