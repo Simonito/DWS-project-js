@@ -32,7 +32,7 @@ services:
     restart: always
     build: ./backend
     ports:
-      - "8000:8000"
+      - "41000:41000"
     depends_on:
       - db
       - svelte-builder
@@ -46,6 +46,7 @@ services:
       - DATABASE_PASSWORD=admin
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - APP_PORT=41000
 
   db:
     container_name: database
