@@ -17,6 +17,7 @@ services:
       - ./nginx/sites/:/etc/nginx/sites-available
       - ./nginx/conf.d/:/etc/nginx/conf.d
       - ./logs/nginx:/var/log/nginx/
+
   svelte-builder:
     container_name: svelte-builder
     build:
@@ -25,18 +26,18 @@ services:
     volumes:
       - ./svelte-frontend:/app
     command: npm run build
-  api:
-    container_name: api
+
+  express-backend:
+    container_name: express-backend
     restart: always
-    build: ./php-backend
+    build: ./backend
+    ports:
+      - "8000:8000"
     depends_on:
       - db
       - svelte-builder
     links:
       - db
-    volumes:
-      - ./php-backend:/var/www/html/php-backend
-      - ./logs/php.log:/var/log/fpm-php.www.log
     environment:
       - DATABASE_USER=user
       - DATABASE_HOST=database

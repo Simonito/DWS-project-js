@@ -1,0 +1,21 @@
+FROM node:21.7.3
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+ENV DATABASE_HOST=127.0.0.1
+ENV DATABASE_PORT=5432
+ENV DATABASE_NAME=dbs
+ENV DATABASE_USER=xstudent
+ENV DATABASE_PASSWORD=SuperTajneHeslo
+
+ENV APP_PORT=8000
+
+EXPOSE 8000
+
+CMD [ "npm", "start" ]
