@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const loginController = require('./controllers/controller.login');
 const registerController = require('./controllers/controller.register');
-const authController = require('./controllers/controller.auth');
 const { userSchema } = require('./entities/user/validation');
 const { validate } = require('./common/validation_util');
+const { cookieJwtAuth } = require('./common/jwtAuthentication');
 
 const router = Router();
 
@@ -15,8 +15,7 @@ router.post('/register', validate(userSchema), (req, res) => {
     registerController.register(req, res);
 });
 
-router.get('/auth', (req, res) => {
-    authController.authenticateCookie(req, res);
+router.get('/', cookieJwtAuth, (req, res) => {
 });
 
 router.get('/test', (req, res) => {

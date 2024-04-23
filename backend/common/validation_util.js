@@ -3,7 +3,7 @@
 
 const { validationResult } = require('express-validator');
 
-const validate = (schemas) => {
+exports.validate = (schemas) => {
     return async (req, res, next) => {
         await Promise.all(schemas.map((schema) => schema.run(req)));
 
@@ -18,8 +18,4 @@ const validate = (schemas) => {
             errors: errors,
         })
     };
-}
-
-module.exports = {
-    validate,
 }

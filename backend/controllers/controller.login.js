@@ -1,31 +1,37 @@
 const userService = require('../entities/user/service');
-const { newSession } = require('../session/session');
 const { cookieName } = require('../common/constants');
+const jwt = require('jsonwebtoken');
 
 const login = async (req, res) => {
     try {
         // check user (if we have entry with that name)
-        userRes = await userService.readByName(req.body.username);
+        const userRes = await userService.readByName(req.body.username);
+        console.log(userRes);
         if (userRes == null) {
             return res.status(404).json({'message': 'User does not exist'});
         }
 
         // check password (hash)
-        validPassword = userService.checkPassword(req.body.password, userRes.password);
+        const validPassword = await userService.checkPassword(req.body.password, userRes.password);
         if (!validPassword) {
             return res.status(404).json({'message': 'Invalid password'});
         }
 
-        // create session-id and connect to user-id and return 200 with the token as a cookie
-        const sessionId = newSession(userRes.user_id);
-        res.cookie(cookieName, sessionId, { maxAge: 3600, httpOnly: true });
+        delete userRes.password;
+
+        console.log("before newSession");
+        console.log({input: userRes, secret: process.env.JWT_SECRET});
+        const token = jwt.sign(userRes, process.env.JWT_SECRET, { expiresIn: "1h" });
+        console.log(token);
+        res.cookie(cookieName, token);
         res.status(200).json({message: 'Successful login'});
-    } catch {
+    } catch(error) {
+        console.dir(error);
+        // consider logging the actual error
         res.status(500).json({message: 'Server error'});
     }
     
 };
-
 
 module.exports = {
     login,

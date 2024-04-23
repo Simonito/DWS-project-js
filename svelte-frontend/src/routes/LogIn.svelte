@@ -15,6 +15,7 @@
         try {
             const response = await fetch(serverUrl + 'v1/login', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                   'Accept': 'application/json',
                   'Content-Type': 'application/json'

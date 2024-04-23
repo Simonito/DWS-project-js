@@ -1,7 +1,8 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-// const { frontendOrigin } = require('./common/constants');
+const { frontendOrigin } = require('./common/constants');
+require('dotenv').config();
 
 const app = express();
 
@@ -17,7 +18,6 @@ app.use(cors({
 const routes = require('./routes');
 app.use('/v1', routes);
 
-console.log(process.env.APP_PORT);
 const port = process.env.APP_PORT || 37_000;
 
 console.log('listening on port ' + port);

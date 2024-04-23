@@ -43,8 +43,6 @@ services:
       - DATABASE_PORT=5432
       - DATABASE_NAME=demo
       - DATABASE_PASSWORD=admin
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
       - APP_PORT=41000
 
   db:
@@ -60,11 +58,6 @@ services:
     volumes:
       - local_pgdata:/var/lib/postgresql/data
       - ./db-init-scripts:/docker-entrypoint-initdb.d
-  
-  redis:
-    image: redis:latest
-    ports:
-      - "6379:6379"
 
   pgadmin:
     image: dpage/pgadmin4

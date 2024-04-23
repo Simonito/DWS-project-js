@@ -1,5 +1,6 @@
 <script>
     import { push } from 'svelte-spa-router';
+    import { serverUrl } from '../constants';
 
     let errorMessage = '';
 
@@ -13,6 +14,7 @@
         try {
             const response = await fetch(serverUrl + 'v1/register', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                   'Accept': 'application/json',
                   'Content-Type': 'application/json'

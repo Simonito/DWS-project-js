@@ -32,6 +32,7 @@
         try {
             const response = await fetch(serverUrl + 'v1/auth', {
                 method: 'GET',
+                credentials: 'include',
                 headers: {
                   'Accept': 'application/json',
                 },
@@ -50,6 +51,7 @@
 
     async function updateUserData() {
         const user_data_response = await fetch('/data-user.php', {
+            credentials: 'include',
             method: 'GET',
         });
 
@@ -61,7 +63,7 @@
     }
 
     onMount(() => {
-        authenticate().then(() => updateUserData());
+        updateUserData();
     });
 
 
