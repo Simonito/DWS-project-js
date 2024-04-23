@@ -1,4 +1,2 @@
 **/.DS_Store/
-logs/
-
-php-backend/vendor
+**/node_modules/
