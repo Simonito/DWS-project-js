@@ -2,6 +2,20 @@
 # source of inspiration for the docker infrastructure
 version: "3.8"
 services:
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - express-backend
+      - svelte-builder
+    volumes:
+      - ./svelte-frontend/public:/var/www/html/svelte-frontend
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/sites/:/etc/nginx/sites-available
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+      - ./logs/nginx:/var/log/nginx/
 
   svelte-builder:
     container_name: svelte-builder
