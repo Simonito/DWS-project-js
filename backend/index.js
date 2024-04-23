@@ -8,10 +8,11 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());//{
-//     origin: frontendOrigin,
-//     optionsSuccessStatus: 200, // some old browser, smartTVs, .. may aparently choke on 204
-// }));
+app.use(cors({
+    origin: frontendOrigin,
+    credentials: true,
+}));
+
 
 const routes = require('./routes');
 app.use('/v1', routes);
