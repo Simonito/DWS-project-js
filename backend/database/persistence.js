@@ -5,7 +5,7 @@ const create = (query, params) => {
     return new Promise((resolve, reject) => {
         pool.query(query, params, (err, results) => {
             if (err) {
-                rejecet(new dbresource.DatabaseError(err.message));
+                reject(new dbresource.DatabaseError(err.message));
             } else {
                 resolve(new dbresource.ResourceCreated());
             }
