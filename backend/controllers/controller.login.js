@@ -6,7 +6,6 @@ const login = async (req, res) => {
     try {
         // check user (if we have entry with that name)
         const userRes = await userService.readByName(req.body.username);
-        console.log(userRes);
         if (userRes == null) {
             return res.status(404).json({'message': 'User does not exist'});
         }
@@ -19,10 +18,7 @@ const login = async (req, res) => {
 
         delete userRes.password;
 
-        console.log("before newSession");
-        console.log({input: userRes, secret: process.env.JWT_SECRET});
         const token = jwt.sign(userRes, process.env.JWT_SECRET, { expiresIn: "1h" });
-        console.log(token);
         res.cookie(cookieName, token);
         res.status(200).json({message: 'Successful login'});
     } catch(error) {

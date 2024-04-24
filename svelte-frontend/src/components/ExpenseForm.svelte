@@ -2,6 +2,7 @@
     import { onMount, createEventDispatcher } from 'svelte';
     import { push, replace} from 'svelte-spa-router';
     import moment from 'moment';
+    import { serverUrl } from '../constants';
 
     const dispatch = createEventDispatcher();
 
@@ -18,7 +19,8 @@
     };
 
     async function refreshCategories() {
-        const response = await fetch('/data-category.php', {
+        const response = await fetch(serverUrl + '/v1/categories', {
+            credentials: 'include',
             method: 'GET',
         });
 

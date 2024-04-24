@@ -12,7 +12,7 @@
         const body = JSON.stringify({ username, password });
 
         try {
-            const response = await fetch(serverUrl + 'v1/register', {
+            const response = await fetch(serverUrl + '/v1/register', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

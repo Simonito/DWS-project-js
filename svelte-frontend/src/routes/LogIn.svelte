@@ -13,7 +13,7 @@
         const body = JSON.stringify({ username, password });
 
         try {
-            const response = await fetch(serverUrl + 'v1/login', {
+            const response = await fetch(serverUrl + '/v1/login', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

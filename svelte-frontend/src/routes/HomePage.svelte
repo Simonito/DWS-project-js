@@ -27,39 +27,26 @@
             category_name: "None",
         },
     ];
-    
-    async function authenticate() {
-        try {
-            const response = await fetch(serverUrl + 'v1/auth', {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                  'Accept': 'application/json',
-                },
-            });
-
-            if (response.status != 200) {
-                await replace('/login');
-            } else {
-                // AUTHORIZED
-                const res = await response.json();
-            }
-        } catch(err) {
-            await replace('/login');
-        }
-    }
 
     async function updateUserData() {
-        const user_data_response = await fetch('/data-user.php', {
-            credentials: 'include',
-            method: 'GET',
-        });
+        try {
+            const user_data_response = await fetch(serverUrl + '/v1/users/expenses', {
+                credentials: 'include',
+                method: 'GET',
+            });
 
-        if (user_data_response.status === 200) {
-            const user_data_json = await user_data_response.json();
-            username = user_data_json.username;
-            expenses = user_data_json.user_expenses;
+            if (user_data_response.status === 200) {
+                const user_data_json = await user_data_response.json();
+                username = user_data_json.username;
+                expenses = user_data_json.user_expenses;
+            } else if (user_data_response.status === 401) {
+                await replace('/login');
+            }
+        } catch(err) {
+            // handle the responses
+            await replace('/login');
         }
+        
     }
 
     onMount(() => {
