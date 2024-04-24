@@ -34,7 +34,7 @@ const readByName = async (username) => {
         } else if (res instanceof dbresource.ResourceReadData) {
             return res.data[0];
         } else {
-            throw new Error('Unexpected return type from persistance.read call');
+            throw new Error('Unexpected return type from persistence.read call');
         }
     } catch(error) {
         throw error;
@@ -49,7 +49,7 @@ const readUserWithExpensesByUserId = async (id) => {
         } else if (res instanceof dbresource.ResourceReadData) {
             return res.data;
         } else {
-            throw new Error('Unexpected return type from persistance.read call');
+            throw new Error('Unexpected return type from persistence.read call');
         }
     } catch(error) {
         throw error;
