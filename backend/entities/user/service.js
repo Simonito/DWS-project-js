@@ -41,6 +41,21 @@ const readByName = async (username) => {
     }
 };
 
+const readUserWithExpensesByUserId = async (id) => {
+    try {
+        const res = await persistence.read(queries.readUserExpensesById, [id]);
+        if (res instanceof dbresource.ResourceReadEmpty) {
+            return null;
+        } else if (res instanceof dbresource.ResourceReadData) {
+            return res.data;
+        } else {
+            throw new Error('Unexpected return type from persistance.read call');
+        }
+    } catch(error) {
+        throw error;
+    }
+};
+
 const update = async (id, username, password) => {
     try {
         // hash the password here:
@@ -71,4 +86,6 @@ module.exports = {
     checkPassword,
     update,
     remove,
+
+    readUserWithExpensesByUserId,
 };

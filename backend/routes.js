@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const loginController = require('./controllers/controller.login');
 const registerController = require('./controllers/controller.register');
+const userController = require('./controllers/controller.user');
 const { userSchema } = require('./entities/user/validation');
 const { validate } = require('./common/validation_util');
 const { cookieJwtAuth } = require('./common/jwtAuthentication');
@@ -22,5 +23,12 @@ router.get('/test', (req, res) => {
     return res.status(200).json({message: 'test'});
 })
 
+router.get('/users/expenses', cookieJwtAuth, (req, res) => {
+    userController.userExpenses(req, res);
+});
+
+router.get('/categories', cookieJwtAuth, (req, res) => {
+
+});
 
 module.exports = router;
